@@ -3,7 +3,7 @@ import styles from './Quiz.module.scss'
 import QuestionOptions from './QuestionOptions'
 import QuestionSelection from './QuestionSelection'
 import OptionButtons from './OptionButtons'
-import { movieQuestions, questions } from './QuestionArr'
+import { questions } from './QuestionArr'
 
 /* import styleList from './styles.json'
 const newStyles = styleList.style
@@ -52,6 +52,7 @@ function Quiz() {
         correct_answer: 'string'
         incorrect_answers: 'string'
     } */
+    console.log('innitial', questions)
 
     const [questionNum, setQuestion] = useState(0)
     const [numCorrect, setCorrect] = useState(0)
@@ -65,17 +66,6 @@ function Quiz() {
         sortArrays()
         //console.log('sortedQuestions: ', sortedQuestions)
     }, [extQuestions])
-
-    /*     useEffect(() => {
-        console.log('sortedQuestions useEffect: ', sortedQuestions)
-    }, [sortedQuestions]) */
-
-    //console.log('questions', extQuestions)
-    //Only run function when questions array is populated
-    /*    if (Object.keys(extQuestions).length !== 0) {
-        sortArrays()
-    } */
-    //let newExt: any = []
 
     function sortArrays() {
         //console.log('extQuestions in sortArrays: ', extQuestions)
@@ -129,7 +119,7 @@ function Quiz() {
 
         //console.log('All Questions', newQuiz)
         setSortedQuestions(newQuiz)
-        setCategory(arrQuestions)
+        //setCategory(arrQuestions)
     }
     console.log('All Questions', sortedQuestions)
     let arrQuestions: any[] = Object.values(sortedQuestions)
@@ -140,7 +130,6 @@ function Quiz() {
     function shuffle(array: any) {
         array.sort(() => Math.random() - 0.5)
     }
-    //decode html
 
     function checkAnswer(isCorrect: boolean) {
         if (isCorrect === true) {
@@ -172,20 +161,19 @@ function Quiz() {
         let category
         //let objModel: any = Object.values(sortedQuestions)
         // category = triviaMode === questions ? movieQuestions : questions
-        category = triviaMode === questions ? movieQuestions : questions
+        category = triviaMode === questions ? arrQuestions : questions
         //category = extQuestions
         setCategory(category)
+        console.log('newtriv mode', triviaMode)
         restartGame()
     }
-    /*     let started = false
-    function startQuiz() {
-        started = true
-    } */
+    console.log('length', triviaMode.length)
+    //console.log('tmode', triviaMode)
 
+    //decode html
     function strReplace(newWord: string) {
         newWord = newWord.replace(/&quot;/g, '"')
         newWord = newWord.replace(/&#039;/g, "'")
-        console.log(newWord)
         return newWord
     }
 
@@ -202,28 +190,22 @@ function Quiz() {
             text-4xl text-white font-bold p-5 bg-black w-1/2 m-auto my-9 rounded-lg`}
                 //style={newStyles}
             >
-                {triviaMode === questions ? 'Random Trivia!' : 'Movie Trivia!'}
+                {triviaMode === questions ? 'My Trivia' : 'Random Trivia!'}
             </div>
             <div className="md:flex justify-center items-center">
-                {questionNum >= arrQuestions.length ? (
+                {questionNum >= triviaMode.length ? (
                     <div className="score-section w-4/6 font-bold text-4xl text-white m-1">
-                        Game over: You scored {numCorrect} out of {arrQuestions.length}
+                        Game over: You scored {numCorrect} out of {triviaMode.length}
                     </div>
                 ) : (
                     <>
-                        <QuestionSelection questionNum={questionNum} questions={arrQuestions} strReplace={strReplace} />
+                        <QuestionSelection questionNum={questionNum} questions={triviaMode} strReplace={strReplace} />
 
                         <div className={styles.Quiz__answer_section}>
-                            {arrQuestions[questionNum].answerOptions.map((answerOption: any, index: any) => (
+                            {triviaMode[questionNum].answerOptions.map((answerOption: any, index: any) => (
                                 <QuestionOptions checkAnswer={checkAnswer} answerOption={answerOption} key={index} strReplace={strReplace} />
                             ))}
                         </div>
-
-                        {/*  <div className={styles.Quiz__answer_section}>
-                            {quizExt.incorrect_answers[questionNum].answerOptions.map((answerOption, index) => (
-                                <QuestionOptions checkAnswer={checkAnswer} answerOption={answerOption} indexOf={index} />
-                            ))}
-                        </div> */}
                     </>
                 )}
 
