@@ -16,12 +16,13 @@ interface QuestionProps {
     questionNum: number
     //questions: { questionText: string; answerOptions: [{answerText: string, isCorrect: boolean}] }
     questions: questionTypes[]
+    strReplace: (arg0: string) => string
 }
 
 function QuestionSelection(props: QuestionProps) {
     //Replacing &quot with quotes
-    const newQuestion = props.questions[props.questionNum].question.replace(/&quot;/g, '"')
-    console.log(newQuestion)
+    let newQuestion = props.strReplace(props.questions[props.questionNum].question)
+
     return (
         <div className={styles.QuestionSelections}>
             <div className={`${styles.Quiz__question_count} text-2xl text-white py-3 border-b-2 w-1/2 m-auto `}>

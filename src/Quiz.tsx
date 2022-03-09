@@ -182,6 +182,13 @@ function Quiz() {
         started = true
     } */
 
+    function strReplace(newWord: string) {
+        newWord = newWord.replace(/&quot;/g, '"')
+        newWord = newWord.replace(/&#039;/g, "'")
+        console.log(newWord)
+        return newWord
+    }
+
     return (
         <div
             className={`${styles.Quiz} 
@@ -204,11 +211,11 @@ function Quiz() {
                     </div>
                 ) : (
                     <>
-                        <QuestionSelection questionNum={questionNum} questions={arrQuestions} />
+                        <QuestionSelection questionNum={questionNum} questions={arrQuestions} strReplace={strReplace} />
 
                         <div className={styles.Quiz__answer_section}>
                             {arrQuestions[questionNum].answerOptions.map((answerOption: any, index: any) => (
-                                <QuestionOptions checkAnswer={checkAnswer} answerOption={answerOption} key={index} />
+                                <QuestionOptions checkAnswer={checkAnswer} answerOption={answerOption} key={index} strReplace={strReplace} />
                             ))}
                         </div>
 
