@@ -3,9 +3,9 @@ import styles from './QuestionOptions.module.scss'
 
 import styleList from './styles.json'
 
+//Combining multiple JSON style objects
 const btnSizes = styleList.btn
 const tealStyle = styleList.teal
-//Combining multiple JSON style objects
 const tealBtn = Object.assign(btnSizes, tealStyle)
 
 interface QProps {

@@ -1,6 +1,4 @@
 import React from 'react'
-import { isPropertySignature } from 'typescript'
-import { questions } from './QuestionArr'
 import styles from './QuestionSelections.module.scss'
 
 interface optionTypes {
@@ -14,7 +12,6 @@ interface questionTypes {
 
 interface QuestionProps {
     questionNum: number
-    //questions: { questionText: string; answerOptions: [{answerText: string, isCorrect: boolean}] }
     questions: questionTypes[]
     strReplace: (arg0: string) => string
 }

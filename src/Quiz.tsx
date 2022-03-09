@@ -16,7 +16,7 @@ const buttonStyles = styleList.btn */
 
 //random https://opentdb.com/api.php?amount=10&type=multiple
 
-const quizAPI = 'https://opentdb.com/api.php?amount=10&type=multiple'
+const quizAPI = 'https://opentdb.com/api.php?amount=10&category=16&difficulty=easy&type=multiple'
 
 //const quizExt = quizData
 
@@ -44,22 +44,34 @@ function Quiz() {
         } */
     }, [])
 
-    /*     interface sortQuiz {
-        category: 'string'
-        type: 'string'
-        difficulty: 'string'
-        question: 'string'
-        correct_answer: 'string'
-        incorrect_answers: 'string'
+    interface sortQuiz {
+        category?: 'string'
+        type?: 'string'
+        difficulty?: 'string'
+        question?: 'string'
+        correct_answer?: 'string'
+        incorrect_answers?: 'string'
+        answerOptions?: string[]
+    }
+    console.log('initial', questions)
+
+    /*     interface newQuizInt {
+        category?: 'string'
+        type?: 'string'
+        difficulty?: 'string'
+        question?: 'string'
+        correct_answer?: 'string'
+        incorrect_answers?: 'string'
+        answerOptions?: string[]
     } */
-    console.log('innitial', questions)
 
     const [questionNum, setQuestion] = useState(0)
     const [numCorrect, setCorrect] = useState(0)
     const [colorMode, setColor] = useState(false)
-    const [triviaMode, setCategory] = useState(questions)
-    const [extQuestions, setQuestions] = useState<any>({})
+    const [extQuestions, setQuestions] = useState<sortQuiz>({})
     const [sortedQuestions, setSortedQuestions] = useState([])
+    //const [sortedQuestions, setSortedQuestions] = useState<newQuizInt[]>([])
+    const [triviaMode, setCategory] = useState(questions)
 
     useEffect(() => {
         //getQuestions()
@@ -78,8 +90,8 @@ function Quiz() {
             incorrect_answers: 'string'
         }
         let sortedQuiz: sortQuiz[] = Object.values(extQuestions)
-
         let newQuiz: any = []
+        //let newQuiz: newQuizInt[] = []
 
         //Grab first questions (need to make this loop)
         //create array of all answers
@@ -87,8 +99,9 @@ function Quiz() {
         for (let i = 0; i < sortedQuiz.length; i++) {
             //let newKey = { questions: [] }
             let newObject = {}
-            let allAnswers: any[] = []
-            let singleQuestion = extQuestions
+            let allAnswers = []
+            //let singleQuestion = extQuestions
+            let singleQuestion = Object.values(extQuestions)
 
             //console.log('question 1', sortedQuiz[i])
 
@@ -113,21 +126,26 @@ function Quiz() {
             //shuffle(newObject.answerOptions)
 
             newQuiz.push(newObject)
+            console.log('new quiz', newQuiz)
 
             //let objModel: any = Object.values(sortedQuestions)
         }
 
         //console.log('All Questions', newQuiz)
+
         setSortedQuestions(newQuiz)
         //setCategory(arrQuestions)
     }
     console.log('All Questions', sortedQuestions)
-    let arrQuestions: any[] = Object.values(sortedQuestions)
+    let arrQuestions = Object.values(sortedQuestions)
 
-    //console.log('is array?', arrQuestions === Array)
+    interface allAnswers {
+        answerText: string
+        isCorrect: boolean
+    }
 
     //console.log('All Questions', extQuestions)
-    function shuffle(array: any) {
+    function shuffle(array: allAnswers[]) {
         array.sort(() => Math.random() - 0.5)
     }
 
@@ -159,7 +177,6 @@ function Quiz() {
 
     function changeCategory() {
         let category
-        //let objModel: any = Object.values(sortedQuestions)
         // category = triviaMode === questions ? movieQuestions : questions
         category = triviaMode === questions ? arrQuestions : questions
         //category = extQuestions
@@ -202,7 +219,7 @@ function Quiz() {
                         <QuestionSelection questionNum={questionNum} questions={triviaMode} strReplace={strReplace} />
 
                         <div className={styles.Quiz__answer_section}>
-                            {triviaMode[questionNum].answerOptions.map((answerOption: any, index: any) => (
+                            {triviaMode[questionNum].answerOptions.map((answerOption: any, index: number) => (
                                 <QuestionOptions checkAnswer={checkAnswer} answerOption={answerOption} key={index} strReplace={strReplace} />
                             ))}
                         </div>

@@ -1,8 +1,6 @@
 import React from 'react'
 import styles from './OptionButtons.module.scss'
 
-// old className ${props.colorMode ? styles.darkMode : ''}
-
 interface optionTypes {
     answerText: string
     isCorrect: boolean
