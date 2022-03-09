@@ -10,7 +10,13 @@ const newStyles = styleList.style
 const buttonStyles = styleList.btn */
 
 //https://opentdb.com/api_config.php
-const quizAPI = 'https://opentdb.com/api.php?amount=10&category=11&difficulty=medium&type=multiple'
+
+//movies https://opentdb.com/api.php?amount=10&category=11&difficulty=medium&type=multiple
+//books https://opentdb.com/api.php?amount=10&category=10&type=multiple
+
+//random https://opentdb.com/api.php?amount=10&type=multiple
+
+const quizAPI = 'https://opentdb.com/api.php?amount=10&type=multiple'
 
 //const quizExt = quizData
 
@@ -26,6 +32,7 @@ function Quiz() {
                 //Work with JSON data here
                 //console.log(data)
                 setQuestions(data.results)
+
                 // console.log('extQuestions after fetch: ', extQuestions)
 
                 // sortArrays()
@@ -37,21 +44,21 @@ function Quiz() {
         } */
     }, [])
 
-    interface sortQuiz {
+    /*     interface sortQuiz {
         category: 'string'
         type: 'string'
         difficulty: 'string'
         question: 'string'
         correct_answer: 'string'
         incorrect_answers: 'string'
-    }
+    } */
 
     const [questionNum, setQuestion] = useState(0)
     const [numCorrect, setCorrect] = useState(0)
     const [colorMode, setColor] = useState(false)
     const [triviaMode, setCategory] = useState(questions)
     const [extQuestions, setQuestions] = useState<any>({})
-    const [sortedQuestions, setSortedQuestions] = useState({})
+    const [sortedQuestions, setSortedQuestions] = useState([])
 
     useEffect(() => {
         //getQuestions()
@@ -81,8 +88,8 @@ function Quiz() {
             incorrect_answers: 'string'
         }
         let sortedQuiz: sortQuiz[] = Object.values(extQuestions)
-        //console.log('sorted', sortedQuiz)
-        let newQuiz = []
+
+        let newQuiz: any = []
 
         //Grab first questions (need to make this loop)
         //create array of all answers
@@ -90,7 +97,7 @@ function Quiz() {
         for (let i = 0; i < sortedQuiz.length; i++) {
             //let newKey = { questions: [] }
             let newObject = {}
-            let allAnswers = []
+            let allAnswers: any[] = []
             let singleQuestion = extQuestions
 
             //console.log('question 1', sortedQuiz[i])
@@ -114,18 +121,26 @@ function Quiz() {
             //console.log('new', newObject)
             //console.log('what this', typeof newObject.answerOptions)
             //shuffle(newObject.answerOptions)
+
             newQuiz.push(newObject)
+
+            //let objModel: any = Object.values(sortedQuestions)
         }
 
         //console.log('All Questions', newQuiz)
         setSortedQuestions(newQuiz)
+        setCategory(arrQuestions)
     }
     console.log('All Questions', sortedQuestions)
+    let arrQuestions: any[] = Object.values(sortedQuestions)
+
+    //console.log('is array?', arrQuestions === Array)
 
     //console.log('All Questions', extQuestions)
     function shuffle(array: any) {
         array.sort(() => Math.random() - 0.5)
     }
+    //decode html
 
     function checkAnswer(isCorrect: boolean) {
         if (isCorrect === true) {
@@ -155,17 +170,26 @@ function Quiz() {
 
     function changeCategory() {
         let category
+        //let objModel: any = Object.values(sortedQuestions)
+        // category = triviaMode === questions ? movieQuestions : questions
         category = triviaMode === questions ? movieQuestions : questions
         //category = extQuestions
         setCategory(category)
         restartGame()
     }
+    /*     let started = false
+    function startQuiz() {
+        started = true
+    } */
+
     return (
         <div
             className={`${styles.Quiz} 
         w-full sm:h-screen items-center py-12  
         ${colorMode ? styles.darkMode : ''}`}
         >
+            {/* <button onClick={startQuiz}>Start Now</button> */}
+
             <div
                 className={`${styles.Quiz__title} 
             text-4xl text-white font-bold p-5 bg-black w-1/2 m-auto my-9 rounded-lg`}
@@ -174,16 +198,16 @@ function Quiz() {
                 {triviaMode === questions ? 'Random Trivia!' : 'Movie Trivia!'}
             </div>
             <div className="md:flex justify-center items-center">
-                {questionNum >= triviaMode.length ? (
+                {questionNum >= arrQuestions.length ? (
                     <div className="score-section w-4/6 font-bold text-4xl text-white m-1">
-                        Game over: You scored {numCorrect} out of {triviaMode.length}
+                        Game over: You scored {numCorrect} out of {arrQuestions.length}
                     </div>
                 ) : (
                     <>
-                        <QuestionSelection questionNum={questionNum} questions={triviaMode} />
+                        <QuestionSelection questionNum={questionNum} questions={arrQuestions} />
 
                         <div className={styles.Quiz__answer_section}>
-                            {triviaMode[questionNum].answerOptions.map((answerOption, index) => (
+                            {arrQuestions[questionNum].answerOptions.map((answerOption: any, index: any) => (
                                 <QuestionOptions checkAnswer={checkAnswer} answerOption={answerOption} key={index} />
                             ))}
                         </div>
