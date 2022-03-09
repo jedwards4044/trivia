@@ -1,4 +1,6 @@
-const questions = [
+import { QuizQuestion } from './types'
+
+const questions: QuizQuestion[] = [
     {
         question: 'What is the capital of Ireland?',
         answerOptions: [
@@ -38,7 +40,7 @@ const questions = [
 ]
 
 //Movie Trivia
-const movieQuestions = [
+const movieQuestions: QuizQuestion[] = [
     {
         question: 'Which is the First US film to Feature a toilet flushing?',
         answerOptions: [

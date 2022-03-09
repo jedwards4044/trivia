@@ -39,14 +39,14 @@ function OptionButtons(props: OptionProps) {
                 Switch Color Mode
             </button>
 
-            <button
+            {/* <button
                 onClick={props.changeCategory}
                 className={` 
                 ${styles.Options__endBtn} 
                 text-white font-bold px-4 rounded bg-black hover:bg-slate-600 py-3 text-2xl animate-bounce m-2 w-4/5 sm:w-full`}
             >
                 {props.triviaMode === props.questions ? 'Switch to Random Trivia' : 'Switch to my trivia'}
-            </button>
+            </button> */}
         </div>
     )
 }
