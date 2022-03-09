@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Zen+Antique');
+
+$colors: (
+    primary-bckg: #0f086d,
+    secondary: #04a1a7,
+    primary: rgb(67, 58, 196),
+);
+
+/*------------------- Variables ---------------------------*/
+$bor-radius: 15px;
+$shadow: 5px 5px 15px 5px rgb(0, 0, 0, 0.5);
+$shadow-2: 3px 3px 9px 3px rgb(0, 0, 0, 0.3);
+$main-font: 'Architects Daughter', cursive;
+$mobile: 500px;
+$light-theme: false;
+$btn-width: 60%;
+
+/*----------------------- Extended classes -----------------------*/
+%btn-default {
+    padding: 1rem;
+    color: #fff;
+    border-radius: $bor-radius;
+    box-shadow: $shadow-2;
+    //cursor: pointer;
+    font: {
+        weight: bold;
+        size: 1rem;
+    }
+}
+/*---------------------------------------- Functions -----------------------------*/
+
+// functions that allows you to use map-get to get each color with color(varname)
+@function color($color-name) {
+    @return map-get($colors, $color-name);
+}
+
+//Darker complementary color
+@function light-comp($color) {
+    $complement: complement($color);
+    $light-complement: darken($complement, 5%);
+    @return $light-complement;
+}
+
+@function half-width() {
+    $new-height: $btn-width/2;
+    @return $new-height;
+}
+
+/* -------------------- Mix Ins --------------------*/
+//Displays flex
+
+@mixin useFlex {
+    display: flex;
+    flex-wrap: wrap;
+}
+//Theme color mode if statement
+@mixin theme-color() {
+    @if $light-theme {
+        background: color(primary-bckg);
+    } @else {
+        background: color(dark-bckg);
+        color: #fff;
+    }
+}
+//Sets whatever property passed to blue
+@mixin setBlue($property) {
+    #{$property}: color(primary);
+}
+
+@mixin maxWidth($maxWidth, $margin: 0px) {
+    max-width: $maxWidth;
+    margin: $margin auto;
+}
+
+@mixin transition {
+    transition-duration: 1s !important;
+    transition-timing-function: ease-in !important;
+}
+
+@mixin mobileChange {
+    @media (max-width: #{$mobile}) {
+        @content;
+    }
+}

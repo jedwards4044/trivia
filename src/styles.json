@@ -1,0 +1,17 @@
+{
+    "style": {
+        "color": "red",
+        "font-size": "4rem"
+    },
+    "btn": {
+        "fontSize": "1.5rem",
+        "borderRadius": "14px",
+        "width": "60%",
+        "margin": "1rem",
+        "padding": "1rem",
+        "color": "white"
+    },
+    "teal": {
+        "background": "teal"
+    }
+}
