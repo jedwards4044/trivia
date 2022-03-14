@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import './App.css'
+import React, { useState, useEffect, useRef } from 'react'
 import Quiz from './Quiz'
 import { questions as internalQuestions } from './QuestionArr'
 import { ApiQuizQuestion, QuizQuestion, QuizAnswer } from './types'
+import OptionButtons from './OptionButtons'
+import styles from './App.module.scss'
 const quizAPI = 'https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple'
+let usingExtQuestions = false
 
 function shuffle(array: QuizAnswer[]) {
     array.sort(() => Math.random() - 0.5)
@@ -45,6 +47,7 @@ function transformExtQuestions(extQuestions: ApiQuizQuestion[]) {
         //shuffle(newObject.answerOptions)
 
         newQuiz.push(newObject)
+        //usingExtQuestions = true
         //console.log('new quiz', newQuiz)
 
         //let objModel: any = Object.values(sortedQuestions)
@@ -54,7 +57,7 @@ function transformExtQuestions(extQuestions: ApiQuizQuestion[]) {
     //setCategory(arrQuestions)
 }
 
-function useQuizData() {
+/* function useQuizData() {
     const [questions, setQuestions] = useState(internalQuestions)
 
     useEffect(() => {
@@ -79,18 +82,49 @@ function useQuizData() {
     }, [])
 
     return questions
-}
+} */
 
 function App() {
-    let questions = useQuizData()
-    /*  const toggleDataSource = () => {
-        questions = questions === internalQuestions ? apiQuestions : internalQuestions
+    const [toggleMode, setMode] = useState(true)
+    const [questions, setQuestions] = useState(internalQuestions)
+
+    useEffect(() => {
+        //getQuestions()
+        if (toggleMode) {
+            fetch(quizAPI)
+                .then((response) => {
+                    //console.log('response', response)
+                    return response.json()
+                })
+                .then((data) => {
+                    //Work with JSON data here
+                    console.log('data', data.results)
+                    //const apiQuestions = transformExtQuestions(data.results)
+                    const apiQuestions = transformExtQuestions(data.results)
+                    setQuestions(apiQuestions)
+                    console.log('Transformed Questions', apiQuestions)
+
+                    // sortArrays()
+
+                    return apiQuestions
+                })
+        }
+    }, [toggleMode])
+
+    function toggleDataSource() {
+        if (toggleMode) {
+            setQuestions(internalQuestions)
+        }
+        setMode((prevMode) => !prevMode)
+        //console.log('api', previousQuestions.current)
     }
- */
+
     return (
-        <div className="App">
+        <div className={styles.App}>
+            <button onClick={toggleDataSource} className={`${styles.App_btn} text-2xl text-white top-0 right-0 w-1/5 bg-red-700 p-2 hover:bg-black`}>
+                Toggle Data Source
+            </button>
             <Quiz questions={questions} />
-            {/* <button onClick={toggleDataSource}>Toggle Data Source</button> */}
         </div>
     )
 }

@@ -27,28 +27,12 @@ function Quiz(props: QuizProps) {
 
     //console.log('initial', questions)
 
-    /*     interface newQuizInt {
-        category?: 'string'
-        type?: 'string'
-        difficulty?: 'string'
-        question?: 'string'
-        correct_answer?: 'string'
-        incorrect_answers?: 'string'
-        answerOptions?: string[]
-    } */
-
     const [questionNum, setQuestion] = useState(0)
     const [numCorrect, setCorrect] = useState(0)
     const [colorMode, setColor] = useState(false)
     // const [extQuestions, setQuestions] = useState<QuizQuestion>({})
     const [sortedQuestions, setSortedQuestions] = useState([])
     //const [sortedQuestions, setSortedQuestions] = useState<newQuizInt[]>([])
-
-    // useEffect(() => {
-    //     //getQuestions()
-    //     sortArrays()
-    //     //console.log('sortedQuestions: ', sortedQuestions)
-    // }, [extQuestions])
 
     // console.log('All Questions', sortedQuestions)
     let arrQuestions = Object.values(sortedQuestions)
