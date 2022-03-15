@@ -4,13 +4,14 @@ import { questions as internalQuestions } from './QuestionArr'
 import { ApiQuizQuestion, QuizQuestion, QuizAnswer } from './types'
 import OptionButtons from './OptionButtons'
 import styles from './App.module.scss'
+import { shuffle, transformExtQuestions, strReplace } from './functions'
 const quizAPI = 'https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple'
 
-function shuffle(array: QuizAnswer[]) {
+/* function shuffle(array: QuizAnswer[]) {
     array.sort(() => Math.random() - 0.5)
-}
+} */
 
-function transformExtQuestions(extQuestions: ApiQuizQuestion[]) {
+/* function transformExtQuestions(extQuestions: ApiQuizQuestion[]) {
     //console.log('extQuestions in sortArrays: ', extQuestions)
     let sortedQuiz: ApiQuizQuestion[] = Object.values(extQuestions)
     let newQuiz: any = []
@@ -49,18 +50,9 @@ function transformExtQuestions(extQuestions: ApiQuizQuestion[]) {
         //shuffle(newObject.answerOptions)
 
         newQuiz.push(newObject)
-        //usingExtQuestions = true
-        //console.log('new quiz', newQuiz)
-
         //let objModel: any = Object.values(sortedQuestions)
 
         console.log('converted q', newQuiz.question)
-
-        /*  for (let i = 0; i < newQuiz.incorrect_answers.length; i++) {
-            strReplace(newQuiz.incorrect_answers[i])
-        } */
-
-        //strReplace(newQuiz.question)
     }
     console.log('new quiz', newQuiz)
 
@@ -74,7 +66,7 @@ function strReplace(newWord: string) {
     return textarea.value
 
     //return newWord
-}
+} */
 
 /* function useQuizData() {
     const [questions, setQuestions] = useState(internalQuestions)
@@ -145,7 +137,7 @@ function App() {
 
     return (
         <div className={styles.App}>
-            <button onClick={toggleDataSource} className={`${styles.App_btn} text-2xl text-white top-0 right-0 w-1/5 bg-red-700 p-2 hover:bg-black`}>
+            <button onClick={toggleDataSource} className={`${styles.App_btn} text-2xl text-white fixed top-0 right-0 w-1/5 bg-red-700 p-2 hover:bg-black`}>
                 Toggle Data Source
             </button>
             <Quiz questions={questions} />

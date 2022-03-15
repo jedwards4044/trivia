@@ -13,7 +13,7 @@ interface questionTypes {
 interface OptionProps {
     restartGame: () => void
     colorChange: () => void
-    changeCategory: () => void
+    //changeCategory: () => void
     triviaMode: questionTypes[]
     questions: questionTypes[]
     colorMode: boolean

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import styles from './Quiz.module.scss'
 import QuestionOptions from './QuestionOptions'
 import QuestionSelection from './QuestionSelection'
@@ -25,8 +25,6 @@ interface QuizProps {
 function Quiz(props: QuizProps) {
     const { questions } = props
 
-    //console.log('initial', questions)
-
     const [questionNum, setQuestion] = useState(0)
     const [numCorrect, setCorrect] = useState(0)
     const [colorMode, setColor] = useState(false)
@@ -34,10 +32,9 @@ function Quiz(props: QuizProps) {
     //const [sortedQuestions, setSortedQuestions] = useState([])
     //const [sortedQuestions, setSortedQuestions] = useState<newQuizInt[]>([])
 
-    // console.log('All Questions', sortedQuestions)
     //let arrQuestions = Object.values(sortedQuestions)
 
-    //console.log('All Questions', extQuestions)
+    //Checks if answer is right or wrong
     function checkAnswer(isCorrect: boolean) {
         if (isCorrect === true) {
             let correct = numCorrect
@@ -49,22 +46,23 @@ function Quiz(props: QuizProps) {
         }
         changeQuestion()
     }
-
+    //Changes question num to show next question
     function changeQuestion() {
         const currentQuestion = questionNum
         setQuestion(currentQuestion + 1)
     }
-
+    //Restarting the game to question 1 correct 0
     function restartGame() {
         setQuestion(0)
         setCorrect(0)
     }
 
+    //Changing colormode
     function colorChange() {
         setColor((currentColor) => !currentColor)
     }
 
-    function changeCategory() {
+    /* function changeCategory() {
         // let category
         // // category = triviaMode === questions ? movieQuestions : questions
         // category = triviaMode === questions ? arrQuestions : questions
@@ -72,7 +70,7 @@ function Quiz(props: QuizProps) {
         // setCategory(category)
         // console.log('newtriv mode', triviaMode)
         // restartGame()
-    }
+    } */
     //console.log('tmode', triviaMode)
 
     //decode html
@@ -92,8 +90,6 @@ function Quiz(props: QuizProps) {
         w-full sm:h-screen items-center py-12  
         ${colorMode ? styles.darkMode : ''}`}
         >
-            {/* <button onClick={startQuiz}>Start Now</button> */}
-
             <div
                 className={`${styles.Quiz__title} 
             text-4xl text-white font-bold p-5 bg-black w-1/2 m-auto my-9 rounded-lg`}
@@ -121,13 +117,12 @@ function Quiz(props: QuizProps) {
                 <OptionButtons
                     restartGame={restartGame}
                     colorChange={colorChange}
-                    changeCategory={changeCategory}
+                    /* changeCategory={changeCategory} */
                     triviaMode={questions}
                     questions={questions}
                     colorMode={colorMode}
                 />
             </div>
-            {/* <NestedClasses /> */}
         </div>
     )
 }
