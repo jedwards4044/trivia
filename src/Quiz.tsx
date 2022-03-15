@@ -31,11 +31,11 @@ function Quiz(props: QuizProps) {
     const [numCorrect, setCorrect] = useState(0)
     const [colorMode, setColor] = useState(false)
     // const [extQuestions, setQuestions] = useState<QuizQuestion>({})
-    const [sortedQuestions, setSortedQuestions] = useState([])
+    //const [sortedQuestions, setSortedQuestions] = useState([])
     //const [sortedQuestions, setSortedQuestions] = useState<newQuizInt[]>([])
 
     // console.log('All Questions', sortedQuestions)
-    let arrQuestions = Object.values(sortedQuestions)
+    //let arrQuestions = Object.values(sortedQuestions)
 
     //console.log('All Questions', extQuestions)
     function checkAnswer(isCorrect: boolean) {
@@ -76,12 +76,15 @@ function Quiz(props: QuizProps) {
     //console.log('tmode', triviaMode)
 
     //decode html
-    function strReplace(newWord: string) {
-        newWord = newWord.replace(/&quot;/g, '"')
-        newWord = newWord.replace(/&#039;/g, "'")
-        newWord = newWord.replace(/&amp;/g, '&')
+    /* function strReplace(newWord: string) {
+
+        var textarea = document.createElement('textarea')
+        textarea.innerHTML = newWord
+        return textarea.value
         return newWord
-    }
+
+        //return newWord
+    }*/
 
     return (
         <div
@@ -105,11 +108,11 @@ function Quiz(props: QuizProps) {
                     </div>
                 ) : (
                     <>
-                        <QuestionSelection questionNum={questionNum} questions={questions} strReplace={strReplace} />
+                        <QuestionSelection questionNum={questionNum} questions={questions} />
 
                         <div className={styles.Quiz__answer_section}>
                             {questions[questionNum].answerOptions.map((answerOption: any, index: number) => (
-                                <QuestionOptions checkAnswer={checkAnswer} answerOption={answerOption} key={index} strReplace={strReplace} />
+                                <QuestionOptions checkAnswer={checkAnswer} answerOption={answerOption} key={index} />
                             ))}
                         </div>
                     </>

@@ -11,11 +11,10 @@ const tealBtn = Object.assign(btnSizes, tealStyle)
 interface QProps {
     checkAnswer: (isCorrect: boolean) => void
     answerOption: { answerText: string; isCorrect: boolean }
-    strReplace: (arg0: string) => string
+    //strReplace: (arg0: string) => string
 }
 
 function QuestionOptions(props: QProps) {
-    let newAnswer = props.strReplace(props.answerOption.answerText)
     var classNames = require('classnames')
     const btnClassesList = classNames(
         'text-white',
@@ -39,7 +38,7 @@ function QuestionOptions(props: QProps) {
             //style={tealBtn}
             onClick={() => props.checkAnswer(props.answerOption.isCorrect)}
         >
-            {newAnswer}
+            {props.answerOption.answerText}
         </button>
     )
 }

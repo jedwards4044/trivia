@@ -5,7 +5,6 @@ import { ApiQuizQuestion, QuizQuestion, QuizAnswer } from './types'
 import OptionButtons from './OptionButtons'
 import styles from './App.module.scss'
 const quizAPI = 'https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple'
-let usingExtQuestions = false
 
 function shuffle(array: QuizAnswer[]) {
     array.sort(() => Math.random() - 0.5)
@@ -17,7 +16,6 @@ function transformExtQuestions(extQuestions: ApiQuizQuestion[]) {
     let newQuiz: any = []
     //let newQuiz: newQuizInt[] = []
 
-    //Grab first questions (need to make this loop)
     //create array of all answers
 
     for (let i = 0; i < sortedQuiz.length; i++) {
@@ -33,12 +31,16 @@ function transformExtQuestions(extQuestions: ApiQuizQuestion[]) {
 
         //Define right answer is true and push to all Questions array
         let rightAnswer = { answerText: correctAnswer || '* UNDEFINED ANSWER *', isCorrect: true }
+        rightAnswer.answerText = strReplace(rightAnswer.answerText)
         allAnswers.push(rightAnswer)
         //let groupAnswers = []
         for (let i = 0; i < (wrongAnswers?.length || 0); i++) {
             //let newWrongs = [{ answerText: wrongAnswers[i] }, { isCorrect: false }]
 
-            allAnswers.push({ answerText: wrongAnswers![i], isCorrect: false })
+            //allAnswers.push({ answerText: wrongAnswers![i], isCorrect: false })
+            let otherAnswers = { answerText: wrongAnswers![i], isCorrect: false }
+            otherAnswers.answerText = strReplace(otherAnswers.answerText)
+            allAnswers.push(otherAnswers)
         }
 
         shuffle(allAnswers)
@@ -51,10 +53,27 @@ function transformExtQuestions(extQuestions: ApiQuizQuestion[]) {
         //console.log('new quiz', newQuiz)
 
         //let objModel: any = Object.values(sortedQuestions)
+
+        console.log('converted q', newQuiz.question)
+
+        /*  for (let i = 0; i < newQuiz.incorrect_answers.length; i++) {
+            strReplace(newQuiz.incorrect_answers[i])
+        } */
+
+        //strReplace(newQuiz.question)
     }
+    console.log('new quiz', newQuiz)
 
     return newQuiz
+
     //setCategory(arrQuestions)
+}
+function strReplace(newWord: string) {
+    var textarea = document.createElement('textarea')
+    textarea.innerHTML = newWord
+    return textarea.value
+
+    //return newWord
 }
 
 /* function useQuizData() {
@@ -85,12 +104,12 @@ function transformExtQuestions(extQuestions: ApiQuizQuestion[]) {
 } */
 
 function App() {
-    const [toggleMode, setMode] = useState(true)
+    const [usingExtQuestions, setMode] = useState(true)
     const [questions, setQuestions] = useState(internalQuestions)
 
     useEffect(() => {
         //getQuestions()
-        if (toggleMode) {
+        if (usingExtQuestions) {
             fetch(quizAPI)
                 .then((response) => {
                     //console.log('response', response)
@@ -98,9 +117,14 @@ function App() {
                 })
                 .then((data) => {
                     //Work with JSON data here
-                    console.log('data', data.results)
+                    //console.log('data', data.results)
                     //const apiQuestions = transformExtQuestions(data.results)
                     const apiQuestions = transformExtQuestions(data.results)
+                    //convert HTML characters
+                    for (let i = 0; i < apiQuestions.length; i++) {
+                        apiQuestions[i].question = strReplace(apiQuestions[i].question)
+                    }
+
                     setQuestions(apiQuestions)
                     console.log('Transformed Questions', apiQuestions)
 
@@ -109,10 +133,10 @@ function App() {
                     return apiQuestions
                 })
         }
-    }, [toggleMode])
+    }, [usingExtQuestions])
 
     function toggleDataSource() {
-        if (toggleMode) {
+        if (usingExtQuestions) {
             setQuestions(internalQuestions)
         }
         setMode((prevMode) => !prevMode)
