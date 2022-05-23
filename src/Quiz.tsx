@@ -95,7 +95,7 @@ function Quiz(props: QuizProps) {
             text-4xl text-white font-bold p-5 bg-black w-1/2 m-auto my-9 rounded-lg`}
                 //style={newStyles}
             >
-                {props.title || 'My Trivia'}
+                {props.title || 'Trivia Time!'}
             </div>
             <div className="md:flex justify-center items-center">
                 {questionNum >= questions.length ? (

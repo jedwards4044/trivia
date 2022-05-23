@@ -137,7 +137,7 @@ function App() {
 
     return (
         <div className={styles.App}>
-            <button onClick={toggleDataSource} className={`${styles.App_btn} text-2xl text-white fixed top-0 right-0 w-1/5 bg-red-700 p-2 hover:bg-black`}>
+            <button onClick={toggleDataSource} className={`text-2xl relative text-white w-full bg-red-700 p-2 hover:bg-black`}>
                 Toggle Data Source
             </button>
             <Quiz questions={questions} />
