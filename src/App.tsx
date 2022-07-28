@@ -136,7 +136,7 @@ function App() {
     }
 
     return (
-        <div className={styles.App}>
+        <div className={`${styles.App}`}>
             <button onClick={toggleDataSource} className={`text-2xl relative text-white w-full bg-red-700 p-2 hover:bg-black`}>
                 Toggle Data Source
             </button>

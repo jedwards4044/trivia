@@ -24,7 +24,6 @@ interface QuizProps {
 
 function Quiz(props: QuizProps) {
     const { questions } = props
-
     const [questionNum, setQuestion] = useState(0)
     const [numCorrect, setCorrect] = useState(0)
     const [colorMode, setColor] = useState(false)
@@ -87,7 +86,7 @@ function Quiz(props: QuizProps) {
     return (
         <div
             className={`${styles.Quiz} 
-        w-full sm:h-screen items-center py-12  
+        w-full sm:h-screen items-center py-12 
         ${colorMode ? styles.darkMode : ''}`}
         >
             <div
