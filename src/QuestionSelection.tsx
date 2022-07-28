@@ -23,7 +23,7 @@ function QuestionSelection(props: QuestionProps) {
             <div className={`${styles.Quiz__question_count} text-2xl text-white py-3 border-b-2 w-1/2 m-auto `}>
                 Question {props.questionNum + 1}/{props.questions.length}
             </div>
-            <div className={`${styles.QuestionSelections__question_text} text-3xl text-white italic text-center m-auto my-4 max-w-md`}>
+            <div className={`${styles.QuestionSelections__question_text} text-3xl text-white italic text-center m-auto my-4 max-w-md p-3`}>
                 {props.questions[props.questionNum].question}
             </div>
         </div>
