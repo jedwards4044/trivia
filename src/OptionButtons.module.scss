@@ -1,0 +1,28 @@
+@import 'Global';
+@value darkMode from 'Quiz.module.scss';
+
+/*.Options__endBtn {
+     &.darkMode {
+        background: light-comp(color(secondary));
+        &:hover {
+            background: color(primary);
+        }
+    } 
+}*/
+
+.darkMode .Options__endBtn {
+    background: light-comp(color(secondary));
+    &:hover {
+        background: color(primary);
+    }
+}
+
+/* .darkMode {
+    .Options {
+        background-color: yellow;
+        // background: light-comp(color(secondary));
+        &:hover {
+            background: color(primary);
+        }
+    }
+} */

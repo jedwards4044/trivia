@@ -1,0 +1,49 @@
+@import 'Global';
+.Quiz {
+    background: color(primary-bckg);
+    height: 100%;
+    overflow: auto;
+}
+
+.section {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.darkMode {
+    background: #000;
+    .Quiz__title {
+        background: color(primary);
+    }
+}
+
+/*.Quiz__restartBtn {
+    width: half-width();
+}*/
+
+/*
+ .Quiz {
+    background: color(primary-bckg);
+    padding: 3rem;
+    width: 100%;
+ 
+    @include maxWidth(40rem, 1rem);
+    border-radius: $bor-radius;
+
+    .Quiz__title {
+        color: #fff;
+    }
+
+    .Quiz__question_count {
+        color: #fff;
+    }
+    .Quiz__answer_section {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .Quiz__question_text {
+        color: #fff;
+        margin: 1rem;
+        font-style: italic;
+    }
+} */
