@@ -7,10 +7,11 @@ import { strReplace, transformExtQuestions } from './functions'
 import { useEffect, useState } from 'react'
 import cn from 'classnames'
 import Answer from './Answer'
+import { TriviaSectionProps, QuizQuestion } from './types'
 
-const TriviaSection = (props: any) => {
+const TriviaSection = (props: TriviaSectionProps) => {
     const { numCorrect, questionNum, checkAnswer, restartGame, colorChange, colorMode, apiUrl, changeQuestion } = props
-    const [questions, setQuestions] = useState(internalQuestions)
+    const [questions, setQuestions] = useState<QuizQuestion[]>([])
     const [answerCorrect, setAnswerCorrect] = useState(false)
     const [questionAnswered, setAnsweredQuestion] = useState(false)
 
@@ -41,35 +42,39 @@ const TriviaSection = (props: any) => {
 
     return (
         <div className={cn('md:flex justify-center items-center', styles.section)}>
-            {questionNum >= questions.length ? (
-                <div className="score-section w-4/6 font-bold text-4xl text-white my-4 text-center mx-auto p-2">
-                    Game over: You scored {numCorrect} out of {questions.length}
-                </div>
-            ) : (
+            {questions.length !== 0 && (
                 <>
-                    <QuestionSelection questionNum={questionNum} questions={questions} />
-
-                    {questionAnswered && (
-                        <Answer
-                            isCorrect={answerCorrect}
-                            correctAnswer={questions[questionNum].correct_answer}
-                            setAnsweredQuestion={setAnsweredQuestion}
-                            changeQuestion={changeQuestion}
-                        />
-                    )}
-                    {!questionAnswered && (
-                        <div className={styles.Quiz__answer_section}>
-                            {questions[questionNum].answerOptions.map((answerOption: any, index: number) => (
-                                <QuestionOptions
-                                    checkAnswer={checkAnswer}
-                                    answerOption={answerOption}
-                                    key={index}
-                                    correctAnswer={questions[questionNum].correct_answer}
-                                    setAnswerCorrect={setAnswerCorrect}
-                                    setAnsweredQuestion={setAnsweredQuestion}
-                                />
-                            ))}
+                    {questionNum >= questions.length ? (
+                        <div className="score-section w-4/6 font-bold text-4xl text-white my-4 text-center mx-auto p-2">
+                            Game over: You scored {numCorrect} out of {questions.length}
                         </div>
+                    ) : (
+                        <>
+                            <QuestionSelection questionNum={questionNum} questions={questions} />
+
+                            {questionAnswered && (
+                                <Answer
+                                    isCorrect={answerCorrect}
+                                    correctAnswer={questions[questionNum].correct_answer}
+                                    setAnsweredQuestion={setAnsweredQuestion}
+                                    changeQuestion={changeQuestion}
+                                />
+                            )}
+                            {!questionAnswered && (
+                                <div className={styles.Quiz__answer_section}>
+                                    {questions[questionNum].answerOptions.map((answerOption: any, index: number) => (
+                                        <QuestionOptions
+                                            checkAnswer={checkAnswer}
+                                            answerOption={answerOption}
+                                            key={index}
+                                            correctAnswer={questions[questionNum].correct_answer}
+                                            setAnswerCorrect={setAnswerCorrect}
+                                            setAnsweredQuestion={setAnsweredQuestion}
+                                        />
+                                    ))}
+                                </div>
+                            )}
+                        </>
                     )}
                 </>
             )}

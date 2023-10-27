@@ -26,7 +26,7 @@ const Quiz = (props: QuizProps) => {
     const [colorMode, setColor] = useState(false)
 
     const [apiUrl, setUrl] = useState('')
-    const [topic, setTopic] = useState('')
+    //const [topic, setTopic] = useState('')
     // const [extQuestions, setQuestions] = useState<QuizQuestion>({})
     //const [sortedQuestions, setSortedQuestions] = useState([])
     //const [sortedQuestions, setSortedQuestions] = useState<newQuizInt[]>([])

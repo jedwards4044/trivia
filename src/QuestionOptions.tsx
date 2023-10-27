@@ -1,11 +1,11 @@
 import styles from './QuestionOptions.module.scss'
-import styleList from './styles.json'
+//import styleList from './styles.json'
 import { QuestionOptionsProps } from './types'
 
 //Combining multiple JSON style objects
-const btnSizes = styleList.btn
-const tealStyle = styleList.teal
-const tealBtn = Object.assign(btnSizes, tealStyle)
+//onst btnSizes = styleList.btn
+//const tealStyle = styleList.teal
+//const tealBtn = Object.assign(btnSizes, tealStyle)
 
 function QuestionOptions(props: QuestionOptionsProps) {
     const { checkAnswer, answerOption, correctAnswer, setAnswerCorrect, setAnsweredQuestion } = props
