@@ -9,6 +9,7 @@ interface TopicProps {
 const ChoseTopic = (props: TopicProps) => {
     const [numQuestions, setNumQuestions] = useState<string>('')
     const [topic, setTopic] = useState<string>('')
+    const [difficulty, setDifficulty] = useState<string>('')
 
     const btnClassesList = cn(
         'text-white',
@@ -32,9 +33,13 @@ const ChoseTopic = (props: TopicProps) => {
         { title: 'Film', value: '11' },
     ]
     const questionAmounts = ['5', '10', '15', '20']
+    const difficulties = ['easy', 'medium', 'hard']
 
     const updateTopic = (topic: string) => {
         setTopic(topic)
+    }
+    const updateDifficulty = (difficulty: string) => {
+        setDifficulty(difficulty)
     }
 
     function updateNumQuestions(value: string) {
@@ -42,7 +47,7 @@ const ChoseTopic = (props: TopicProps) => {
     }
 
     const updateFetchUrl = () => {
-        const newUrl = `https://opentdb.com/api.php?amount=${numQuestions}&difficulty=easy&type=multiple&category=${topic}`
+        const newUrl = `https://opentdb.com/api.php?amount=${numQuestions}&difficulty=${difficulty}&type=multiple&category=${topic}`
         props.setUrl(newUrl)
     }
     if (topic && numQuestions) {
@@ -66,6 +71,20 @@ const ChoseTopic = (props: TopicProps) => {
                         </button>
                     ))}
                 {topic &&
+                    !difficulty &&
+                    difficulties.map((difficultyItem: string, index: number) => (
+                        <button
+                            //className={`${styles.QuestionOption} text-white font-bold py-2 px-4 rounded bg-teal-600 w-3/5 m-3 text-2xl border-4 border-teal-600 hover:bg-transparent`}
+                            className={`${styles.QuestionOption} ${btnClassesList}`}
+                            //style={tealBtn}
+                            //onClick={() => props.checkAnswer(props.answerOption.isCorrect)}
+                            onClick={() => updateDifficulty(difficultyItem)}
+                        >
+                            {difficultyItem}
+                        </button>
+                    ))}
+                {topic &&
+                    difficulty &&
                     questionAmounts.map((questionAmount: string, index: number) => (
                         <button
                             //className={`${styles.QuestionOption} text-white font-bold py-2 px-4 rounded bg-teal-600 w-3/5 m-3 text-2xl border-4 border-teal-600 hover:bg-transparent`}
